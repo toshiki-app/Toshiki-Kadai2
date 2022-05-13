@@ -12,21 +12,21 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textFields: [UITextField] = [self.textField1, self.textField2]
+        let textFields: [UITextField] = [textField1, textField2]
         textFields.forEach({ $0.keyboardType = .numberPad })
         
-        self.arithmeticSegment.setTitle("+", forSegmentAt: 0)
-        self.arithmeticSegment.setTitle("-", forSegmentAt: 1)
-        self.arithmeticSegment.setTitle("×", forSegmentAt: 2)
-        self.arithmeticSegment.setTitle("÷", forSegmentAt: 3)
+        arithmeticSegment.setTitle("+", forSegmentAt: 0)
+        arithmeticSegment.setTitle("-", forSegmentAt: 1)
+        arithmeticSegment.setTitle("×", forSegmentAt: 2)
+        arithmeticSegment.setTitle("÷", forSegmentAt: 3)
         
-        self.arithmeticSegment.selectedSegmentIndex = 0
+        arithmeticSegment.selectedSegmentIndex = 0
     }
     
     @IBAction func calculate(_ sender: Any) {
         
-        guard let number1 = Double(self.textField1.text ?? ""), let number2 = Double(self.textField2.text ?? "") else  {
-            self.resultLabel.text = "数字を入力して下さい。"
+        guard let number1 = Double(textField1.text ?? ""), let number2 = Double(textField2.text ?? "") else  {
+            resultLabel.text = "数字を入力して下さい。"
             return
         }
         
@@ -41,7 +41,7 @@ final class ViewController: UIViewController {
             total = (number1 * number2)
         case 3:
             guard number2 != 0 else {
-                self.resultLabel.text = "割る数には0以外を入力して下さい。"
+                resultLabel.text = "割る数には0以外を入力して下さい。"
                 return
             }
             
@@ -50,14 +50,14 @@ final class ViewController: UIViewController {
             return
         }
         
-        self.resultLabel.text = total.description
+        resultLabel.text = total.description
         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        self.view.endEditing(true)
+        view.endEditing(true)
         
     }
     
