@@ -15,12 +15,12 @@ final class ViewController: UIViewController {
         let textFields: [UITextField] = [self.textField1, self.textField2]
         textFields.forEach({ $0.keyboardType = .numberPad })
         
-        self.arithmeticSegment.selectedSegmentIndex = -1
         self.arithmeticSegment.setTitle("+", forSegmentAt: 0)
         self.arithmeticSegment.setTitle("-", forSegmentAt: 1)
         self.arithmeticSegment.setTitle("×", forSegmentAt: 2)
         self.arithmeticSegment.setTitle("÷", forSegmentAt: 3)
         
+        self.arithmeticSegment.selectedSegmentIndex = 0
     }
     
     @IBAction func calculate(_ sender: Any) {
@@ -30,40 +30,24 @@ final class ViewController: UIViewController {
             return
         }
         
-        var total: Double!
+        let total: Double
         
-        guard !(arithmeticSegment.selectedSegmentIndex == -1) else {
-            self.resultLabel.text = "計算方法を選択して下さい。"
-            return
-        }
-        
-        switch self.arithmeticSegment.titleForSegment(at: self.arithmeticSegment.selectedSegmentIndex) {
-            
-        case "＋":
-            
+        switch arithmeticSegment.selectedSegmentIndex {
+        case 0:
             total = (number1 + number2)
-            
-        case "-":
-            
+        case 1:
             total = (number1 - number2)
-            
-        case "×":
-            
+        case 2:
             total = (number1 * number2)
-            
-        case "÷":
-            
-            guard !(number2 == 0) else {
+        case 3:
+            guard number2 != 0 else {
                 self.resultLabel.text = "割る数には0以外を入力して下さい。"
                 return
             }
             
             total = (number1 / number2)
-            
         default:
-            
             return
-            
         }
         
         self.resultLabel.text = total.description
